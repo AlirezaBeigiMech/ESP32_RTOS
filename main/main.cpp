@@ -136,10 +136,10 @@ void idleTask(void *pvParameter) {
             
             std::cout << "IDLE = " << uxQueueSpacesAvailable(xQueue) << std::endl;
             
-            vTaskDelay(1000 / portTICK_PERIOD_MS);
+            vTaskDelayUntil(1000 / portTICK_PERIOD_MS);
 
         } else {
-            vTaskDelay(1000 / portTICK_PERIOD_MS);
+            vTaskDelayUntil(1000 / portTICK_PERIOD_MS);
         }
     }
 }
@@ -173,7 +173,7 @@ void foo_task(void *pvParameter) {
         c = uxSemaphoreGetCount(xSemaphore);
         if(xEventGroupGetBits(eventGroup) & EVENT_FLAG_1) {
             if (c % 2 == 0) {
-                vTaskDelay(1000 / portTICK_PERIOD_MS);
+                vTaskDelayUntil(1000 / portTICK_PERIOD_MS);
                 std::cout << "Foo " << c;
                 if(is_prime(c)) {
                     std::cout << " Prime ";
@@ -192,11 +192,11 @@ void foo_task(void *pvParameter) {
                     if(xEventGroupGetBits(eventGroup) & EVENT_FLAG_1) {
                         xEventGroupClearBits(eventGroup, EVENT_FLAG_1);
                     }
-                    vTaskDelay(1000 / portTICK_PERIOD_MS);
+                    vTaskDelayUntil(1000 / portTICK_PERIOD_MS);
                 }
             }
         } else {
-            vTaskDelay(1000 / portTICK_PERIOD_MS);
+            vTaskDelayUntil(1000 / portTICK_PERIOD_MS);
         }
     }
 }
@@ -225,7 +225,7 @@ void bar_task(void *pvParameter) {
         c = uxSemaphoreGetCount(xSemaphore);
         if(xEventGroupGetBits(eventGroup) & EVENT_FLAG_1) {
             if (c % 2 == 1) {
-                vTaskDelay(1000 / portTICK_PERIOD_MS);
+                vTaskDelayUntil(1000 / portTICK_PERIOD_MS);
                 std::cout << "Bar " << c;
                 xSemaphoreTake(xSemaphore, portMAX_DELAY);
                 if(is_prime(c)) {
@@ -241,7 +241,7 @@ void bar_task(void *pvParameter) {
                 uart_write_bytes(UART_NUM_2, message, len);
             }        
         } else {
-            vTaskDelay(1000 / portTICK_PERIOD_MS);
+            vTaskDelayUntil(1000 / portTICK_PERIOD_MS);
         }
     }
 }
